@@ -12,5 +12,7 @@ namespace SuperStarMagazine.Models
         public virtual User User { get; set; }
         public virtual SubscriptionType SubscriptionType { get; set; }
         public string PaymentReferance { get; set; }
+        public int MagazineId { get; set; }
+        public virtual Magazine Magazine { get; set; }
     }
 }

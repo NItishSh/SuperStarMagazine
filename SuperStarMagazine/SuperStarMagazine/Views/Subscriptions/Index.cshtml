@@ -12,6 +12,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Magazine.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.SubscriptionType)
         </th>
         <th>
@@ -22,6 +28,12 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Magazine.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.SubscriptionType)
         </td>

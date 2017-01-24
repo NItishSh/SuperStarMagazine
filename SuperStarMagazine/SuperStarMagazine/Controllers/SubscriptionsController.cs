@@ -17,7 +17,8 @@ namespace SuperStarMagazine.Controllers
         // GET: Subscriptions
         public ActionResult Index()
         {
-            return View(db.Subscriptions.ToList());
+            var subscriptions = db.Subscriptions.Include(s => s.Magazine).Include(s => s.User);
+            return View(subscriptions.ToList());
         }
 
         // GET: Subscriptions/Details/5
@@ -38,6 +39,8 @@ namespace SuperStarMagazine.Controllers
         // GET: Subscriptions/Create
         public ActionResult Create()
         {
+            ViewBag.MagazineId = new SelectList(db.Magazines, "Id", "Title");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
 
@@ -46,7 +49,7 @@ namespace SuperStarMagazine.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SubscriptionType,PaymentReferance")] Subscription subscription)
+        public ActionResult Create([Bind(Include = "Id,UserId,SubscriptionType,PaymentReferance,MagazineId")] Subscription subscription)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +58,8 @@ namespace SuperStarMagazine.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.MagazineId = new SelectList(db.Magazines, "Id", "Title", subscription.MagazineId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", subscription.UserId);
             return View(subscription);
         }
 
@@ -70,6 +75,8 @@ namespace SuperStarMagazine.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.MagazineId = new SelectList(db.Magazines, "Id", "Title", subscription.MagazineId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", subscription.UserId);
             return View(subscription);
         }
 
@@ -78,7 +85,7 @@ namespace SuperStarMagazine.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SubscriptionType,PaymentReferance")] Subscription subscription)
+        public ActionResult Edit([Bind(Include = "Id,UserId,SubscriptionType,PaymentReferance,MagazineId")] Subscription subscription)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +93,8 @@ namespace SuperStarMagazine.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.MagazineId = new SelectList(db.Magazines, "Id", "Title", subscription.MagazineId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", subscription.UserId);
             return View(subscription);
         }
 

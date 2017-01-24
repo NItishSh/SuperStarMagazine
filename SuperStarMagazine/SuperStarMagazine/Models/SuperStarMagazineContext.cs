@@ -18,7 +18,7 @@ namespace SuperStarMagazine.Models
         public SuperStarMagazineContext() : base("name=SuperStarMagazineContext")
         {
             //TODO comment out this if not required
-            Database.SetInitializer<SuperStarMagazineContext>(new DropCreateDatabaseIfModelChanges<SuperStarMagazineContext>());
+            Database.SetInitializer<SuperStarMagazineContext>(new DropCreateDatabaseAlways<SuperStarMagazineContext>());
         }
 
         public System.Data.Entity.DbSet<SuperStarMagazine.Models.Publisher> Publishers { get; set; }
